@@ -44,6 +44,17 @@ In regulated settings like banking, it's often best to start with an interpretab
 
 ---
 
+## 📈 Exploratory Data Analysis (EDA) Summary
+
+We performed initial data exploration and uncovered the following key insights:
+
+- `CountryCode` has only one unique value across all records, so it does not provide any discriminatory power and can be safely removed.
+- Both `Amount` and `Value` are highly right-skewed due to a few very large transactions. To make them more suitable for modeling, a **log transformation** (`log1p`) is planned.
+- `PricingStrategy` appears fairly balanced and symmetric across categories, so it will be retained and encoded appropriately (e.g., using one-hot encoding).
+- Analysis of `ProductCategory` against our proxy target `is_high_risk` revealed that categories such as `airtime` and `financial_services` dominate in transaction volume and have a **significant share of high-risk users**. These insights can guide risk policy and feature creation.
+
+We will continue expanding on these insights as we progress with feature engineering and modeling.
+
 
 ## Structure
 - `data/`: Raw and processed data (not tracked by git)
