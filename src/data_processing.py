@@ -69,7 +69,10 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
 # -----------------------------
 # Log Transformer
 # -----------------------------
-log_transformer = FunctionTransformer(np.log1p, validate=True)
+symmetric_log_transformer = FunctionTransformer(
+    func=lambda x: np.sign(x) * np.log1p(np.abs(x)),
+    validate=True
+)
 
 # -----------------------------
 # Pipeline Assembly Function
@@ -81,7 +84,7 @@ def create_feature_pipeline():
 
     numerical_log_pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
-        ("log", log_transformer),
+        ("log", symmetric_log_transformer),
         ("scaler", StandardScaler())
     ])
 
