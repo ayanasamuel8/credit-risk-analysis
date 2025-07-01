@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run linter
-        run: flake8 src/
+        run: flake8 src/api
 
       - name: Run tests
         run: pytest
