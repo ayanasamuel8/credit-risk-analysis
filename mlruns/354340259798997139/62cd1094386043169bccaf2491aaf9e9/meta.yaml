@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/user/Documents/Datasience/credict-risk-analysis/mlruns/354340259798997139/62cd1094386043169bccaf2491aaf9e9/artifacts
+end_time: 1751398029504
+entry_point_name: ''
+experiment_id: '354340259798997139'
+lifecycle_stage: active
+run_id: 62cd1094386043169bccaf2491aaf9e9
+run_name: ambitious-smelt-954
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751398025887
+status: 3
+tags: []
+user_id: user
