@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/57aab8474d7740eb9545d7f1f10d7c87/artifacts
+end_time: 1751396809229
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: 57aab8474d7740eb9545d7f1f10d7c87
+run_name: inquisitive-ram-849
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751396809082
+status: 3
+tags: []
+user_id: user

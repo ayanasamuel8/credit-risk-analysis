@@ -1,20 +1,20 @@
 aliases: []
-creation_timestamp: 1751379712536
-current_stage: Production
+creation_timestamp: 1751391686953
+current_stage: Archived
 deployment_job_state: null
 description: null
-last_updated_timestamp: 1751379712636
+last_updated_timestamp: 1751396850610
 metrics: []
-model_id: m-2ee0c611e3bc4e239638cb470f1ebeb8
+model_id: m-4b06462693b24928a0072ac1ca7e249d
 name: CreditRisk_xgboost_model
 params:
   max_depth: '3'
-  n_estimators: '100'
-run_id: fc33e47344e44f7295136cdc5ed5077a
+  n_estimators: '200'
+run_id: 1fa66ae8eb8e427fb8c1a0699e37594d
 run_link: null
-source: models:/m-2ee0c611e3bc4e239638cb470f1ebeb8
+source: models:/m-4b06462693b24928a0072ac1ca7e249d
 status: READY
 status_message: null
-storage_location: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/models/m-2ee0c611e3bc4e239638cb470f1ebeb8/artifacts
+storage_location: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/models/m-4b06462693b24928a0072ac1ca7e249d/artifacts
 user_id: null
 version: 1

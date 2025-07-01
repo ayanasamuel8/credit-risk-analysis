@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/user/Documents/Datasience/credict-risk-analysis/mlruns/354340259798997139/dce6c160524a4aa8a6819ef21f2acf3a/artifacts
+end_time: 1751397835751
+entry_point_name: ''
+experiment_id: '354340259798997139'
+lifecycle_stage: active
+run_id: dce6c160524a4aa8a6819ef21f2acf3a
+run_name: popular-rat-541
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751397832079
+status: 3
+tags: []
+user_id: user

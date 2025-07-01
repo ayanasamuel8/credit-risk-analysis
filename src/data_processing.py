@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer, MinMaxScaler, OneHotEncoder, StandardScaler
+from sklearn.preprocessing import FunctionTransformer, MinMaxScaler, OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
@@ -24,6 +24,45 @@ class DateTimeFeatureExtractor(BaseEstimator, TransformerMixin):
         X_["DayOfWeek"] = X_[self.datetime_col].dt.dayofweek
         X_["Month"] = X_[self.datetime_col].dt.month
         return X_
+
+class SmartCategoricalEncoder(BaseEstimator, TransformerMixin):
+    def __init__(self, max_categories=10):
+        self.max_categories = max_categories
+        self.encoders = {}
+        self.feature_names_out = []
+
+    def fit(self, X, y=None):
+        self.encoders = {}
+        for col in X.columns:
+            n_unique = X[col].nunique()
+            if n_unique <= self.max_categories:
+                encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+            else:
+                encoder = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)
+            encoder.fit(X[[col]])
+            self.encoders[col] = encoder
+        return self
+
+    def transform(self, X):
+        encoded = []
+        self.feature_names_out = []
+        for col, encoder in self.encoders.items():
+            X_col = X[[col]]
+            transformed = encoder.transform(X_col)
+            encoded.append(transformed)
+
+            # Store feature names for later (especially for one-hot)
+            if isinstance(encoder, OneHotEncoder):
+                names = encoder.get_feature_names_out([col])
+            else:
+                names = [col]
+            self.feature_names_out.extend(names)
+
+        return np.hstack(encoded)
+
+    def get_feature_names_out(self):
+        return self.feature_names_out
+
 
 # -----------------------------
 # Custom Transformer for RFM Features
@@ -73,9 +112,6 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
         # Normalize risk score to 0-1
         risk_score = (risk_score - risk_score.min()) / (risk_score.max() - risk_score.min())
 
-        kmeans = KMeans(n_clusters=3, random_state=42)
-        rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
-
         rfm["risk_score"] = risk_score
         # Define high risk as top 20% risk scores (adjust threshold as needed)
         threshold = np.quantile(risk_score, 0.60)
@@ -102,7 +138,7 @@ symmetric_log_transformer = FunctionTransformer(
 def create_feature_pipeline():
     log_scaled_cols = ['Amount', 'Value', 'Frequency', 'AvgAmount', 'AmountStdDev', 'Recency']
     numeric_only = []
-    categorical_features = ['ProductCategory', 'ChannelId', 'PricingStrategy']
+    categorical_features = ['ProductCategory', 'ChannelId', 'PricingStrategy', 'SubscriptionId', 'ProviderId', 'ProductId']
 
     numerical_log_pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
@@ -116,8 +152,9 @@ def create_feature_pipeline():
     ])
 
     categorical_pipeline = Pipeline([
-        ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))
+        ("smart_encoder", SmartCategoricalEncoder(max_categories=10))
     ])
+
 
     preprocessor = ColumnTransformer(transformers=[
         ("num_log", numerical_log_pipeline, log_scaled_cols),

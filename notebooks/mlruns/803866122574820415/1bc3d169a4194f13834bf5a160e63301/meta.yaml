@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/1bc3d169a4194f13834bf5a160e63301/artifacts
+end_time: 1751396850230
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: 1bc3d169a4194f13834bf5a160e63301
+run_name: melodic-robin-95
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751396839794
+status: 3
+tags: []
+user_id: user
