@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/9dadea01680242ebb3a7846941f85f9f/artifacts
+end_time: 1751396839394
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: 9dadea01680242ebb3a7846941f85f9f
+run_name: melodic-pig-513
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751396809237
+status: 3
+tags: []
+user_id: user

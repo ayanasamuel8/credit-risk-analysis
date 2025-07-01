@@ -1,12 +1,19 @@
-"""Pydantic models for API input/output validation."""
-
 from pydantic import BaseModel
 
-class PredictionRequest(BaseModel):
-    # Define input fields
-    feature1: float
-    feature2: float
+
+class Transaction(BaseModel):
+    TransactionId: str
+    CustomerId: str
+    ProductCategory: str
+    ChannelId: str
+    Amount: float
+    Value: float
+    TransactionStartTime: str
+    PricingStrategy: str
+    SubscriptionId: str
+    ProviderId: str
+    ProductId: str
+
 
 class PredictionResponse(BaseModel):
-    risk_score: float
-    approved: bool
+    is_high_risk: int

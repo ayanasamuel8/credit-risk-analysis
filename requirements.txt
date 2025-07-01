@@ -11,3 +11,4 @@ seaborn
 mlflow
 joblib
 xgboost
+flake8

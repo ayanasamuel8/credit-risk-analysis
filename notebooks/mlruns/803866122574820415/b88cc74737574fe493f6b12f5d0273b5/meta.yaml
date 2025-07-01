@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/b88cc74737574fe493f6b12f5d0273b5/artifacts
+end_time: 1751396839787
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: b88cc74737574fe493f6b12f5d0273b5
+run_name: awesome-goose-828
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751396839656
+status: 3
+tags: []
+user_id: user

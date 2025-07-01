@@ -112,9 +112,6 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
         # Normalize risk score to 0-1
         risk_score = (risk_score - risk_score.min()) / (risk_score.max() - risk_score.min())
 
-        kmeans = KMeans(n_clusters=3, random_state=42)
-        rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
-
         rfm["risk_score"] = risk_score
         # Define high risk as top 20% risk scores (adjust threshold as needed)
         threshold = np.quantile(risk_score, 0.60)

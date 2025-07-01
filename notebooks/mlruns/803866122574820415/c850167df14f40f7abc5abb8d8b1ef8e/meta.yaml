@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/c850167df14f40f7abc5abb8d8b1ef8e/artifacts
+end_time: 1751391676478
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: c850167df14f40f7abc5abb8d8b1ef8e
+run_name: charming-gnat-474
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751391676305
+status: 3
+tags: []
+user_id: user

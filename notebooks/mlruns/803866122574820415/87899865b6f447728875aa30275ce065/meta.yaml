@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/87899865b6f447728875aa30275ce065/artifacts
+end_time: 1751396809048
+entry_point_name: ''
+experiment_id: '803866122574820415'
+lifecycle_stage: active
+run_id: 87899865b6f447728875aa30275ce065
+run_name: debonair-newt-684
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751396755031
+status: 3
+tags: []
+user_id: user

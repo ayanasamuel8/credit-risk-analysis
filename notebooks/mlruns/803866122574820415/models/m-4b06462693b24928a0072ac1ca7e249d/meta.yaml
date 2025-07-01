@@ -1,0 +1,10 @@
+artifact_location: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/803866122574820415/models/m-4b06462693b24928a0072ac1ca7e249d/artifacts
+creation_timestamp: 1751391683030
+experiment_id: '803866122574820415'
+last_updated_timestamp: 1751391686626
+model_id: m-4b06462693b24928a0072ac1ca7e249d
+model_type: null
+name: model
+source_run_id: 1fa66ae8eb8e427fb8c1a0699e37594d
+status: 2
+status_message: null

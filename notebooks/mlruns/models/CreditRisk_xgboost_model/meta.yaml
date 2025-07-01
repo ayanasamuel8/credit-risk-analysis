@@ -1,7 +1,7 @@
 aliases: {}
-creation_timestamp: 1751379712461
+creation_timestamp: 1751391686921
 deployment_job_id: null
 deployment_job_state: null
 description: null
-last_updated_timestamp: 1751388234406
+last_updated_timestamp: 1751396850610
 name: CreditRisk_xgboost_model

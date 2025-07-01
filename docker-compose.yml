@@ -1,10 +1,10 @@
-version: '3.8'
+version: "3.8"
 services:
-  api:
+  app:
     build: .
     ports:
       - "8000:8000"
     volumes:
       - .:/app
     environment:
-      - ENV=production
+      - MLFLOW_TRACKING_URI=http://your-mlflow-server:5000  # update if using remote
