@@ -88,8 +88,11 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
 # -----------------------------
 # Log Transformer
 # -----------------------------
+def symmetric_log_func(x):
+    return np.sign(x) * np.log1p(np.abs(x))
+
 symmetric_log_transformer = FunctionTransformer(
-    func=lambda x: np.sign(x) * np.log1p(np.abs(x)),
+    func=symmetric_log_func,
     validate=True
 )
 
