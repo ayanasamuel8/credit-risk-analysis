@@ -3,8 +3,9 @@ import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer, StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.cluster import KMeans
 
 # -----------------------------
 # Custom Transformer for DateTime
@@ -48,7 +49,21 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
 
         rfm.columns = ["Recency", "Frequency", "AvgAmount", "AmountStdDev"]
         rfm = rfm.reset_index()
-        X_ = X_.merge(rfm, on="CustomerId", how="left")
+
+        # RFM Scaling and Clustering
+        rfm_scaled = rfm.drop(columns=["CustomerId"]).fillna(0)
+        scaler = StandardScaler()
+        rfm_scaled = scaler.fit_transform(rfm_scaled)
+
+        kmeans = KMeans(n_clusters=3, random_state=42)
+        rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
+
+        # Assign high-risk label to cluster with lowest Frequency and AvgAmount
+        cluster_profiles = rfm.groupby("Cluster")[["Frequency", "AvgAmount"]].mean()
+        high_risk_cluster = cluster_profiles.sum(axis=1).idxmin()
+        rfm["is_high_risk"] = (rfm["Cluster"] == high_risk_cluster).astype(int)
+
+        X_ = X_.merge(rfm[["CustomerId", "Recency", "Frequency", "AvgAmount", "AmountStdDev", "is_high_risk"]], on="CustomerId", how="left")
         return X_
 
 # -----------------------------
@@ -71,12 +86,11 @@ def create_feature_pipeline():
     ])
 
     numerical_pipeline = Pipeline([
-        ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
+        ("imputer", SimpleImputer(strategy="mean")),
         ("scaler", StandardScaler())
     ])
 
     categorical_pipeline = Pipeline([
-        ("imputer", SimpleImputer(strategy="constant", fill_value="missing")),
         ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))
     ])
 
@@ -112,6 +126,7 @@ if __name__ == "__main__":
     numeric_only = ['Recency']
     all_cols = list(log_scaled_cols) + numeric_only + list(cat_cols)
 
-    # Create DataFrame
-    transformed_df = pd.DataFrame(transformed, columns=all_cols)
+    rfm_df = pipeline.named_steps["rfm_features"].transform(df)
+    transformed_df["is_high_risk"] = rfm_df["is_high_risk"].values
+
     print(transformed_df.head())
