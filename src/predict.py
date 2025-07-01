@@ -12,7 +12,7 @@ def predict(df: pd.DataFrame, model_name: str ="CreditRisk_xgboost_model", stage
     transformed_data = pipeline.transform(data)
     # 🏷️ Build full column list
     cat_cols = pipeline.named_steps["preprocessor"].named_transformers_["cat"]\
-        .named_steps["onehot"].get_feature_names_out(['ProductCategory', 'ChannelId', 'PricingStrategy'])
+        .named_steps["smart_encoder"].get_feature_names_out()
 
     all_cols = ['Amount', 'Value', 'Frequency', 'AvgAmount', 'AmountStdDev', 'Recency'] + list(cat_cols)
 

@@ -1,9 +1,9 @@
 aliases: []
 creation_timestamp: 1751379712536
-current_stage: Production
+current_stage: Archived
 deployment_job_state: null
 description: null
-last_updated_timestamp: 1751379712636
+last_updated_timestamp: 1751388234406
 metrics: []
 model_id: m-2ee0c611e3bc4e239638cb470f1ebeb8
 name: CreditRisk_xgboost_model

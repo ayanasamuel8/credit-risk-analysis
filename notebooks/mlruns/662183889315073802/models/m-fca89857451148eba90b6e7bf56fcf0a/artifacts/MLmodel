@@ -1,0 +1,22 @@
+artifact_path: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/models/m-fca89857451148eba90b6e7bf56fcf0a/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+mlflow_version: 3.1.1
+model_id: m-fca89857451148eba90b6e7bf56fcf0a
+model_size_bytes: 1719
+model_uuid: m-fca89857451148eba90b6e7bf56fcf0a
+prompts: null
+run_id: a24aa19720c6402688f0de4021e2e3a4
+utc_time_created: '2025-07-01 16:43:10.938714'
