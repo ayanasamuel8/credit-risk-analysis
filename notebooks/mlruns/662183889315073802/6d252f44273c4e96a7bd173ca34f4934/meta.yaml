@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/6d252f44273c4e96a7bd173ca34f4934/artifacts
+end_time: 1751377047551
+entry_point_name: ''
+experiment_id: '662183889315073802'
+lifecycle_stage: active
+run_id: 6d252f44273c4e96a7bd173ca34f4934
+run_name: welcoming-quail-833
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751377047450
+status: 3
+tags: []
+user_id: user

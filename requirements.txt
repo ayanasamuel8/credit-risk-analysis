@@ -8,3 +8,6 @@ pytest
 plotly
 matplotlib
 seaborn
+mlflow
+joblib
+xgboost

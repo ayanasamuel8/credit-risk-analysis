@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/576dea75bd4d4092913bf0ad882e75dd/artifacts
+end_time: 1751378300319
+entry_point_name: ''
+experiment_id: '662183889315073802'
+lifecycle_stage: active
+run_id: 576dea75bd4d4092913bf0ad882e75dd
+run_name: intelligent-ape-526
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751378295692
+status: 3
+tags: []
+user_id: user

@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer, StandardScaler, OneHotEncoder
+from sklearn.preprocessing import FunctionTransformer, MinMaxScaler, OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
@@ -31,6 +31,7 @@ class DateTimeFeatureExtractor(BaseEstimator, TransformerMixin):
 class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
     def __init__(self, snapshot_date=None):
         self.snapshot_date = snapshot_date
+        self.scaler = MinMaxScaler()
 
     def fit(self, X, y=None):
         return self
@@ -49,27 +50,51 @@ class RFMFeatureEngineer(BaseEstimator, TransformerMixin):
 
         rfm.columns = ["Recency", "Frequency", "AvgAmount", "AmountStdDev"]
         rfm = rfm.reset_index()
+        
+        # Handle NaNs in AmountStdDev
+        rfm["AmountStdDev"] = rfm["AmountStdDev"].fillna(0)
 
-        # RFM Scaling and Clustering
-        rfm_scaled = rfm.drop(columns=["CustomerId"]).fillna(0)
-        scaler = StandardScaler()
-        rfm_scaled = scaler.fit_transform(rfm_scaled)
+        # Scale features to 0-1
+        features_to_scale = ["Recency", "Frequency", "AvgAmount", "AmountStdDev"]
+        rfm_scaled = self.scaler.fit_transform(rfm[features_to_scale])
+
+        # Compute risk score
+        # Higher Recency => more risk (weight +1)
+        # Lower Frequency => more risk (weight -1)
+        # Lower AvgAmount => more risk (weight -1)
+        # Higher AmountStdDev => maybe more risk (weight +0.5)
+        risk_score = (
+            rfm_scaled[:, 0]  # Recency
+            - rfm_scaled[:, 1]  # Frequency
+            - rfm_scaled[:, 2]  # AvgAmount
+            + 0.5 * rfm_scaled[:, 3]  # AmountStdDev
+        )
+
+        # Normalize risk score to 0-1
+        risk_score = (risk_score - risk_score.min()) / (risk_score.max() - risk_score.min())
 
         kmeans = KMeans(n_clusters=3, random_state=42)
         rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
 
-        # Assign high-risk label to cluster with lowest Frequency and AvgAmount
-        cluster_profiles = rfm.groupby("Cluster")[["Frequency", "AvgAmount"]].mean()
-        high_risk_cluster = cluster_profiles.sum(axis=1).idxmin()
-        rfm["is_high_risk"] = (rfm["Cluster"] == high_risk_cluster).astype(int)
+        rfm["risk_score"] = risk_score
+        # Define high risk as top 20% risk scores (adjust threshold as needed)
+        threshold = np.quantile(risk_score, 0.60)
+        rfm["is_high_risk"] = (rfm["risk_score"] >= threshold).astype(int)
 
         X_ = X_.merge(rfm[["CustomerId", "Recency", "Frequency", "AvgAmount", "AmountStdDev", "is_high_risk"]], on="CustomerId", how="left")
         return X_
 
+
 # -----------------------------
 # Log Transformer
 # -----------------------------
-log_transformer = FunctionTransformer(np.log1p, validate=True)
+def symmetric_log_func(x):
+    return np.sign(x) * np.log1p(np.abs(x))
+
+symmetric_log_transformer = FunctionTransformer(
+    func=symmetric_log_func,
+    validate=True
+)
 
 # -----------------------------
 # Pipeline Assembly Function
@@ -81,7 +106,7 @@ def create_feature_pipeline():
 
     numerical_log_pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
-        ("log", log_transformer),
+        ("log", symmetric_log_transformer),
         ("scaler", StandardScaler())
     ])
 
