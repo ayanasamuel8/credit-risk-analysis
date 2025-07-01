@@ -1,4 +1,4 @@
-# Credit Risk Model
+# 🏦 Credit Risk Model
 
 ## 📊 Credit Scoring Business Understanding
 
@@ -55,16 +55,82 @@ We performed initial data exploration and uncovered the following key insights:
 
 We will continue expanding on these insights as we progress with feature engineering and modeling.
 
+---
 
-## Structure
-- `data/`: Raw and processed data (not tracked by git)
-- `notebooks/`: EDA and experiment tracking
-- `src/`: Source code (data processing, training, prediction, API)
-- `tests/`: Unit tests
+## 🧠 Project Structure
 
-## Quick Start
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run tests: `pytest tests/`
-3. Start API: `uvicorn src.api.main:app --reload`
+```graphql
+credict-risk-analysis/
+│
+├── artifacts/                 # Saved trained pipeline and metadata
+│   └── fitted_pipeline.pkl
+│
+├── docker-compose.yml        # Docker orchestration file
+├── Dockerfile                # Docker build config for the API service
+│
+├── mlruns/                   # MLflow experiment tracking files
+│
+├── notebooks/                # Experiment notebooks
+│   ├── 1.0-eda.ipynb
+│   ├── 2.0-feature_enginering.ipynb
+│   ├── 3.0-model_training.ipynb
+│   └── 4.0-prediction_checking.ipynb
+│   └── mlruns/               # (sometimes duplicated under notebooks/)
+│
+├── requirements.txt          # Project dependencies
+│
+├── src/                      # Core logic and service code
+│   ├── data_processing.py    # Feature engineering pipeline
+│   ├── train.py              # Model training and MLflow registration
+│   ├── predict.py            # Prediction logic for inference
+│   ├── utils.py              # Utility functions (e.g. logging, config)
+│   └── api/                  # FastAPI application
+│       ├── main.py           # API entry point
+│       └── pydantic_models.py # Request/response schemas
+│
+├── tests/                    # Unit tests for data and model code
+│   ├── test_data_processing.py
+│   └── test_train.py
+│
+└── README.md
+```
 
-See each file for more details.
+---
+
+## 🚀 Quick Start
+
+### 🔧 1. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+# ✅ 2. Run Unit Tests
+```bash
+pytest
+```
+# 🧪 3. Train the Model and Register It
+
+```bash
+python src/train.py
+```
+### This will:
+
+Log the trained model in the `mlruns/` directory using MLflow
+
+Save the fitted pipeline to `artifacts/fitted_pipeline.pkl`
+
+# 🧬 4. Run the API Server
+Start with FastAPI:
+```bash
+uvicorn src.api.main:app --reload
+```
+Or using Docker:
+```bash
+docker build -t credit-risk-api .
+docker run -p 8000:8000 credit-risk-api
+```
+Or with Docker Compose:
+```bash
+docker-compose up
+```
+Then open: http://localhost:8000/docs for the Swagger API interface.
