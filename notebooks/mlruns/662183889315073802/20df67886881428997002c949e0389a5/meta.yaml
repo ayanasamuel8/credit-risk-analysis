@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/20df67886881428997002c949e0389a5/artifacts
+end_time: 1751377030482
+entry_point_name: ''
+experiment_id: '662183889315073802'
+lifecycle_stage: active
+run_id: 20df67886881428997002c949e0389a5
+run_name: blushing-panda-676
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751377030378
+status: 3
+tags: []
+user_id: user

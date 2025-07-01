@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/3c2924d02b3c48a3aeb5053988ed9bf6/artifacts
+end_time: 1751379593368
+entry_point_name: ''
+experiment_id: '662183889315073802'
+lifecycle_stage: active
+run_id: 3c2924d02b3c48a3aeb5053988ed9bf6
+run_name: powerful-bug-456
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751379593197
+status: 3
+tags: []
+user_id: user

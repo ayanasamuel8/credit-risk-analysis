@@ -1,0 +1,14 @@
+artifact_uri: file:c:/Users/user/Documents/Datasience/credict-risk-analysis/notebooks/mlruns/662183889315073802/aa4e7614189a48cf8d211144a3f6bc4e/artifacts
+end_time: 1751376748234
+entry_point_name: ''
+experiment_id: '662183889315073802'
+lifecycle_stage: active
+run_id: aa4e7614189a48cf8d211144a3f6bc4e
+run_name: carefree-grub-353
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751376741214
+status: 3
+tags: []
+user_id: user
